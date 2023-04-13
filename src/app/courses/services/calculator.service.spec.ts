@@ -1,21 +1,27 @@
 import { CalculatorService } from './calculator.service';
 import { LoggerService } from './logger.service';
 describe('CalculadorService',()=>{
+    let service:CalculatorService;
+    let loggerSpy:any;
+    beforeEach( () =>{
+        console.log("before")
 
-    it ('should add two numbers',() =>{
-        const logger = new LoggerService();
-        const service = new CalculatorService(logger);
-        spyOn(logger,'log')
+         loggerSpy = jasmine.createSpyObj('LoggerService',["log"])
+         service = new CalculatorService(loggerSpy);
+
+    })
+    it ('should add two numbers',() =>{     
+        console.log("add test")
         const result = service.add(2,2);
 
         expect(result).toBe(4)
-        expect(logger.log).toHaveBeenCalledTimes(1)
+        expect(loggerSpy.log).toHaveBeenCalledTimes(1)
     })
 
     it ('should sub two numbers',() =>{
-        const service = new CalculatorService(new LoggerService());
-        const result = service.subtract(2,2);
+        console.log("sub test")
 
+        const result = service.subtract(2,2);
         expect(result).toBe(0,"unexpected subtraction result")
     })
 })
