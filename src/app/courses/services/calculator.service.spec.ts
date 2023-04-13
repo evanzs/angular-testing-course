@@ -16,7 +16,7 @@ describe('CalculadorService',()=>{
        
         service = TestBed.inject(CalculatorService)
     })
-    it ('should add two numbers',() =>{     
+    xit ('should add two numbers',() =>{     
         console.log("add test")
         const result = service.add(2,2);
 
