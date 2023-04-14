@@ -22,9 +22,15 @@ describe('HomeComponent', () => {
   let component:HomeComponent;
   let el: DebugElement;
 
-  beforeEach((() => {
+  beforeEach((async () => {
+      
+    await TestBed.configureTestingModule({
+      imports:[CoursesModule,HttpClientTestingModule]
+    }).compileComponents();
 
-
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    el = fixture.debugElement;
   }));
 
   it("should create the component", () => {
