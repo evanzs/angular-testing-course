@@ -1,3 +1,4 @@
+import { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { CourseDialogComponent } from './course-dialog.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoursesModule } from './../courses.module';
@@ -12,8 +13,11 @@ describe('CourseDialogComponent',()=>{
 
     beforeEach( async ()=>{
         await TestBed.configureTestingModule({
-            imports:[CoursesModule,HttpClientTestingModule,FormsModule],
-            providers:[MatDialogRef]
+            imports:[CoursesModule,HttpClientTestingModule,FormsModule,MatDialogModule],
+            providers:[
+                {provide: MatDialogRef, useValue: {}},
+                {provide: MAT_DIALOG_DATA, useValue: {} }           
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(CourseDialogComponent);
