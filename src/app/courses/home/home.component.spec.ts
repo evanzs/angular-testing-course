@@ -21,11 +21,14 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component:HomeComponent;
   let el: DebugElement;
-
+  const serveSpy = jasmine.createSpyObj('CoursesService',['findAllCourses'])
   beforeEach((async () => {
       
     await TestBed.configureTestingModule({
-      imports:[CoursesModule,HttpClientTestingModule]
+      imports:[CoursesModule,HttpClientTestingModule,NoopAnimationsModule],
+      providers:[
+        {provide:CoursesService,useValue:serveSpy}
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
