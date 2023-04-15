@@ -1,6 +1,6 @@
 import {async, ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed} from '@angular/core/testing';
 import {CoursesModule} from '../courses.module';
-import {DebugElement} from '@angular/core';
+import { DebugElement, Inject } from '@angular/core';
 
 import {HomeComponent} from './home.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -21,6 +21,8 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component:HomeComponent;
   let el: DebugElement;
+  let service:any;
+
   const serveSpy = jasmine.createSpyObj('CoursesService',['findAllCourses'])
   beforeEach((async () => {
       
@@ -34,6 +36,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement;
+    service = TestBed.inject(CoursesService)
   }));
 
   it("should create the component", () => {
@@ -44,9 +47,12 @@ describe('HomeComponent', () => {
 
 
   it("should display only beginner courses", () => {
+     const beginner =setupCourses().filter(course => course.category == "BIGNNER")
+    service.findAllCourses.and.returnValue(of(beginner))
+    fixture.detectChanges();
 
-    pending();
-
+    const  tab = el.queryAll(By.css(".mat-tab-label"))
+    expect(tab.length).toEqual(1)
   });
 
 
