@@ -47,8 +47,15 @@ beforeEach(async () =>{
 
   it("should display the first course", () => {
 
-      pending();
+    component.courses = setupCourses();      
+    fixture.detectChanges();
 
+    const course = component.courses[0]
+    let card = el.query(By.css(".course-card:first-child")),
+    image = card.query(By.css("img"))
+
+    expect(card).toBeTruthy()
+    expect(image.nativeElement.textContent).toBe(course.iconUrl)
   });
 
 
